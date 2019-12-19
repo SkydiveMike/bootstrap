@@ -26,3 +26,10 @@ If `~/.init` does not exist:
   - For this we need a copy of my main SSH private key
     `id.mike.mclean`. I will need to provide a path to this file as
     input to the script.
+
+# Usage
+On a new target system execute:
+
+``` shell
+bash <(curl -fsSL https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
+```
