@@ -40,7 +40,7 @@ main () {
             echo "Attempting Clone from AWS CodeCommit."
             echo
 
-            if ! GIT_SSH_COMMAND="ssh -i $private_key" git clone "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
+            if ! GIT_SSH_COMMAND="ssh -i $private_key" git clone --recurse-submodules "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
                 echo "Git clone failed."
                 exit 1
             fi
