@@ -7,7 +7,7 @@
 ## Configuration
 
 DOTINIT="$HOME/.init"
-ONEDRIVE_DOTINIT="$HOME/OneDrive/Mike-Documents/development/DotInit2"
+ONEDRIVE_DOTINIT="$HOME/OneDrive/Mike-Documents/development/DotInit"
 REQUIRED_GIT_VERSION="2.3.0"
 DOTINIT_REPO="ssh://APKAJQ5X5AT4DBLNEU6Q@git-codecommit.us-east-1.amazonaws.com/v1/repos/Init-Files"
 
@@ -40,7 +40,7 @@ main () {
             echo "Attempting Clone from AWS CodeCommit."
             echo
 
-            if ! GIT_SSH_COMMAND="ssh -i $private_key" git clone "$DOTINIT_REPO" /tmp/INIT 2>&1; then
+            if ! GIT_SSH_COMMAND="ssh -i $private_key" git clone "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
                 echo "Git clone failed."
                 exit 1
             fi
