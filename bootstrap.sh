@@ -43,6 +43,9 @@ main () {
             if ! GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -i $private_key" git clone --recurse-submodules "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
                 echo "Git clone failed."
                 exit 1
+            else
+                # Fix permission on SSH Keys
+                chmod go-r "$DOTINIT"/dotfiles/ssh/ssh/id*[^p][^u][^b]
             fi
         fi
     fi
