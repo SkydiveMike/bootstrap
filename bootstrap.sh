@@ -45,7 +45,7 @@ main () {
                 exit 1
             else
                 # Fix permission on SSH Keys
-                chmod go-r "$DOTINIT"/dotfiles/ssh/ssh/id*[^p][^u][^b]
+                chmod go-rw "$DOTINIT"/dotfiles/ssh/ssh/id*[^p][^u][^b]
             fi
         fi
     fi
