@@ -93,12 +93,10 @@ check_git () {
         GIT_VERSION=$(git --version | awk '{print $3;}')
         vercomp "$GIT_VERSION" "$REQUIRED_GIT_VERSION"
         if [ $? = 2 ]; then
-            echo "FAIL"
             echo "This script requires Git Version ≥ $REQUIRED_GIT_VERSION; found installed git version $GIT_VERSION"
             exit 1
         fi
     else
-        echo "FAIL"
         echo "This script requires Git Version ≥ $REQUIRED_GIT_VERSION; git not found"
         exit 1
     fi
@@ -140,7 +138,7 @@ check_onedrive () {
             echo "Success"
             return 0
         else
-            echo "FAIL"
+            echo "Symbolic Link of $ONEDRIVE_DOTINIT to $DOTINIT Failed"
             echo "$LN_OUT"
             exit 1
         fi
