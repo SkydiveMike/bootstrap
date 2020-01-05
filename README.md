@@ -28,6 +28,7 @@ If `~/.init` does not exist:
   - A copy of my main SSH private key `id.mike.mclean`, placed on the
     system manually. The script will ask for the path to this file as
     input.
+    - TODO - Change to GPG Keys not SSH Keys
 
 # Usage
 On a new target system execute:
