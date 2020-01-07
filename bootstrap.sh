@@ -51,7 +51,7 @@ main () {
         fi
     fi
     echo
-    echo "Next step: cd into $HOME/.init and run $HOME/.init/install.sh"
+    echo "Next step: cd into $HOME/.init and run: ssh-agent $HOME/.init/install.sh"
 }
 
 ############################################################
