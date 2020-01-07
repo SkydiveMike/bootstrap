@@ -19,7 +19,7 @@ If `~/.init` does not exist:
   will create `~/.init` a symbolic link to that version.
 
 - On a system without a synchronized copy via Microsoft OneDrive this
-  script will execute a `git clone` from AWK Code Commit to `~/.init`.
+  script will execute a `git clone` from AWS Code Commit to `~/.init`.
   The code to clone from AWS CodeCommit requires the following:
   - `curl` or `wget`
   - `ssh`
