@@ -35,6 +35,7 @@ main () {
             check_git # check_git will exit the script ob failure
             echo "PASS"
             echo
+            check_ssh_agent
             get_ssh_key # get_ssh_key will exit the script on failure
             echo
             echo "Attempting Clone from AWS CodeCommit."
@@ -105,6 +106,20 @@ check_git () {
     fi
 }
 
+###################################################################
+## Check for a running ssh-agent; fail if none exists. We should ##
+## always have one since the README instructs us to run with     ##
+## ssh-agent as the parent process.                              ##
+###################################################################
+check_ssh_agent () {
+    if [ -n "${SSH_AGENT_PID+set}" ] && ps -o pid='' "${SSH_AGENT_PID}"; then
+        echo "Found an SSH Agent at ${SSH_AGENT_PID}; attempting to use it"
+    else
+        echo "This script requires a running ssh-agent."
+        exit 1
+    fi
+}
+
 ######################################################################
 ## Prompt the user for an ssh key file to use as credintials to AWS ##
 ## CodeCommit                                                       ##
@@ -124,6 +139,10 @@ get_ssh_key () {
         echo "Error: Cannot read file '$private_key'"
     done
     echo "Set private_key to $private_key"
+    if ! ssh-add "$private_key"; then
+        echo "Failed to add $private_key to SSH_AGENT_PID $SSH_AGENT_PID"
+        exit 1
+    fi
 }
 
 ####################################################################

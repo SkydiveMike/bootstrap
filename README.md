@@ -29,15 +29,16 @@ If `~/.init` does not exist:
     system manually. The script will ask for the path to this file as
     input.
     - TODO - Change to GPG Keys not SSH Keys
+  - A running `ssh-agent`, enforced by the recommended run commands below.
 
 # Usage
 On a new target system execute:
 
 ``` shell
-bash <(curl -fsSL https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
+ssh-agent bash <(curl -fsSL https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
 ```
 or
 
 ``` shell
-bash <(wget -qO-  https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
+ssh-agent bash <(wget -qO-  https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
 ```
