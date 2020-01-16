@@ -20,7 +20,7 @@ fi
 ## main function; get a clean copy of ~/.init on the system ##
 ##############################################################
 
-main () {
+bootstrap_main () {
     if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
         echo "${HOME}/.init exists as a readable directory"
     else
@@ -169,4 +169,4 @@ check_onedrive () {
     fi
 }
 
-main
+bootstrap_main
