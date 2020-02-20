@@ -38,11 +38,11 @@ If `~/.init` does not exist:
 On a new target system execute:
 
 ``` shell
-ssh-agent bash <(curl -fsSL https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
+ssh-agent bash <(curl --noproxy "*" -fsSL https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
 ```
 
 Or:
 
 ``` shell
-ssh-agent bash <(wget -qO-  https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
+ssh-agent bash <(wget --no-proxy -qO-  https://raw.githubusercontent.com/SkydiveMike/bootstrap/master/bootstrap.sh)
 ```
