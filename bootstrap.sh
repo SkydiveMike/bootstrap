@@ -7,7 +7,6 @@
 ## Configuration
 
 DOTINIT="$HOME/.init"
-ONEDRIVE_DOTINIT="$HOME/OneDrive/Mike-Documents/development/DotInit"
 REQUIRED_GIT_VERSION="2.3.0"
 DOTINIT_REPO="ssh://APKAJQ5X5AT4DBLNEU6Q@git-codecommit.us-east-1.amazonaws.com/v1/repos/Init-Files"
 
@@ -24,14 +23,13 @@ bootstrap_main () {
     if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
         echo "${HOME}/.init exists as a readable directory"
     else
-        check_onedrive # check_onedrive will exit the script on failure or return 1 if we need to proceed to git clone
         if [ $? = 1 ]; then # Proceed to Git Clone
-            ##########################################################
-            # Given that no existing .init directory exists and no   #
-            # OneDrive version exists; we no must clone a copy from  #
-            # AWS CodeCommit. This in turn requires a valid SSH key. #
-            ##########################################################
-            echo -n "OneDrive Version of DotInit NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
+            ########################################################
+            # Given that no existing .init directory exists, we no #
+            #  must clone a copy from AWS CodeCommit. This in turn #
+            #  requires a valid SSH key.                           #
+            ########################################################
+            echo -n "${HOME}/.init NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
             check_git # check_git will exit the script ob failure
             echo "PASS"
             echo
@@ -141,30 +139,6 @@ get_ssh_key () {
     if ! ssh-add "$private_key"; then
         echo "Failed to add $private_key to SSH_AGENT_PID $SSH_AGENT_PID"
         exit 1
-    fi
-}
-
-#####################################################################
-# Check for a OneDrive copy of DotInit and symbolic link it into    #
-# ~/.init if possible. Exit script on complete failure, return 1 if #
-# need to proceed to git clone                                      #
-#####################################################################
-
-check_onedrive () {
-    # Check for DotInit in Microsoft One Drive
-    if [ "$OSNAME" == "Darwin" ] && [[ -d "$ONEDRIVE_DOTINIT" ]] && [[ -r "$ONEDRIVE_DOTINIT" ]]; then
-        echo -n "OneDrive Version of DotInit Exists; Linking $ONEDRIVE_DOTINIT to $DOTINIT ... "
-        LN_OUT=$(/bin/ln -s "$ONEDRIVE_DOTINIT" "$DOTINIT" 2>&1)
-        if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
-            echo "Success"
-            return 0
-        else
-            echo "Symbolic Link of $ONEDRIVE_DOTINIT to $DOTINIT Failed"
-            echo "$LN_OUT"
-            exit 1
-        fi
-    else
-        return 1
     fi
 }
 
