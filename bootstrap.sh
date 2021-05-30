@@ -21,7 +21,7 @@ fi
 
 bootstrap_main () {
     if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
-        echo "${HOME}/.init exists as a readable directory"
+        echo "${DOTINIT} exists as a readable directory"
     else
         if [ $? = 1 ]; then # Proceed to Git Clone
             ########################################################
@@ -29,7 +29,7 @@ bootstrap_main () {
             #  must clone a copy from AWS CodeCommit. This in turn #
             #  requires a valid SSH key.                           #
             ########################################################
-            echo -n "${HOME}/.init NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
+            echo -n "${DOTINIT} NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
             check_git # check_git will exit the script ob failure
             echo "PASS"
             echo
@@ -49,7 +49,7 @@ bootstrap_main () {
         fi
     fi
     echo
-    echo "Next step: cd into $HOME/.init and run: ssh-agent $HOME/.init/install.sh"
+    echo "Next step: cd into ${DOTINIT} and run: ssh-agent $HOME/.init/install.sh"
 }
 
 ############################################################
