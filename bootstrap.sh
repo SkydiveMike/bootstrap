@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-## Mike McLean minimal shell environment Bootstrap        ##
+# Mike McLean minimal shell environment Bootstrap          #
 ############################################################
 
 ## Configuration
@@ -16,9 +16,9 @@ if [ "X$OSNAME" = "X" ]; then
     OSNAME=$(uname -s)
 fi
 
-##############################################################
-## main function; get a clean copy of ~/.init on the system ##
-##############################################################
+############################################################
+# Main function; get a clean copy of ~/.init on the system #
+############################################################
 
 bootstrap_main () {
     if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
@@ -26,11 +26,11 @@ bootstrap_main () {
     else
         check_onedrive # check_onedrive will exit the script on failure or return 1 if we need to proceed to git clone
         if [ $? = 1 ]; then # Proceed to Git Clone
-            ###################################################################
-            ## Given that no existing .init directory exists and no OneDrive ##
-            ## version exists; we no must clone a copy from AWS CodeCommit.  ##
-            ## This in turn requires a valid SSH key.                        ##
-            ###################################################################
+            ##########################################################
+            # Given that no existing .init directory exists and no   #
+            # OneDrive version exists; we no must clone a copy from  #
+            # AWS CodeCommit. This in turn requires a valid SSH key. #
+            ##########################################################
             echo -n "OneDrive Version of DotInit NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
             check_git # check_git will exit the script ob failure
             echo "PASS"
@@ -55,7 +55,7 @@ bootstrap_main () {
 }
 
 ############################################################
-## Compare dotted version strings.                        ##
+# Compare dotted version strings.                          #
 ############################################################
 vercomp () {
     # https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
@@ -106,11 +106,11 @@ check_git () {
     fi
 }
 
-###################################################################
-## Check for a running ssh-agent; fail if none exists. We should ##
-## always have one since the README instructs us to run with     ##
-## ssh-agent as the parent process.                              ##
-###################################################################
+#################################################################
+# Check for a running ssh-agent; fail if none exists. We should #
+# always have one since the README instructs us to run with     #
+# ssh-agent as the parent process.                              #
+#################################################################
 check_ssh_agent () {
     if [ -n "${SSH_AGENT_PID+set}" ] && ps -o pid='' "${SSH_AGENT_PID}"; then
         echo "Found an SSH Agent at ${SSH_AGENT_PID}; attempting to use it"
@@ -121,9 +121,8 @@ check_ssh_agent () {
 }
 
 ######################################################################
-## Prompt the user for an ssh key file to use as credintials to AWS ##
-## CodeCommit                                                       ##
-## Set the variable $private_key to a valid, readable file          ##
+# Prompt the user for an ssh key file to use as credintials to AWS   #
+# CodeCommit Set the variable $private_key to a valid, readable file #
 ######################################################################
 get_ssh_key () {
     while true
@@ -145,11 +144,11 @@ get_ssh_key () {
     fi
 }
 
-####################################################################
-## Check for a OneDrive copy of DotInit and symbolic link it into ##
-## ~/.init if possible. Exit script on complete failure, return 1 ##
-## if need to proceed to git clone                                ##
-####################################################################
+#####################################################################
+# Check for a OneDrive copy of DotInit and symbolic link it into    #
+# ~/.init if possible. Exit script on complete failure, return 1 if #
+# need to proceed to git clone                                      #
+#####################################################################
 
 check_onedrive () {
     # Check for DotInit in Microsoft One Drive
