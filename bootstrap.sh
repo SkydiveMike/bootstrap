@@ -110,7 +110,7 @@ check_git () {
 # ssh-agent as the parent process.                              #
 #################################################################
 check_ssh_agent () {
-    if [ -n "${SSH_AGENT_PID+set}" ] && ps -o pid='' "${SSH_AGENT_PID}"; then
+    if [ -n "${SSH_AGENT_PID+set}" ] && ps -p "${SSH_AGENT_PID}" >/dev/null; then
         echo "Found an SSH Agent at ${SSH_AGENT_PID}; attempting to use it"
     else
         echo "This script requires a running ssh-agent."
