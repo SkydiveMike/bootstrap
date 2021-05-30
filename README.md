@@ -23,14 +23,14 @@ If `~/.init` does not exist:
 - On a system without a synchronized copy via Microsoft OneDrive this
   script will execute a `git clone` from AWS Code Commit to `~/.init`.
   The code to clone from AWS CodeCommit requires the following:
-  - `curl` or `wget`
-  - `ssh`
-  - `git` (at least version 2.3.0 which supports the `GIT_SSH_COMMAND`
-    environment variable)
-  - A copy of my main SSH private key `id.mike.mclean`, placed on the
-    system manually. The script will ask for the path to this file as
-    input
-  - A running `ssh-agent`, enforced by the recommended run commands below
+    - `curl` or `wget`
+    - `ssh`
+    - `git` (at least version 2.3.0 which supports the
+    `GIT_SSH_COMMAND` environment variable)
+    - A copy of my main SSH private key `id.mike.mclean`, placed on
+    the system manually. The script will ask for the path to this file
+    as input
+    - A running `ssh-agent`, enforced by the recommended run commands below
 
 ## Usage
 
