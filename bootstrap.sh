@@ -35,11 +35,11 @@ bootstrap_main () {
         check_ssh_agent
         get_ssh_key # get_ssh_key will exit the script on failure
         echo
-        echo "Attempting Clone from AWS CodeCommit."
+        echo "Attempting Clone from AWS CodeCommit (using chezmoi)."
         echo
 
-            echo "Git clone failed."
         if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=verbose -i $private_key" sh -c "$(curl -fsLS git.io/chezmoi)" -d -b "$HOME/.local/bin" -- init --debug -v --source "$DOTINIT" "$DOTINIT_REPO" 2>&1; then
+            echo "Git clone via chezmoi failed."
             exit 1
         else
             # Fix permission on SSH Keys
@@ -93,6 +93,7 @@ check_git () {
         GIT_VERSION=$(git --version | awk '{print $3;}')
         vercomp "$GIT_VERSION" "$REQUIRED_GIT_VERSION"
         if [ $? = 2 ]; then
+            echo "FAIL"
             echo "This script requires Git Version ≥ $REQUIRED_GIT_VERSION; found installed git version $GIT_VERSION"
             exit 1
         fi
