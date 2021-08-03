@@ -38,7 +38,7 @@ bootstrap_main () {
         echo "Attempting Clone from AWS CodeCommit (using chezmoi)."
         echo
 
-        if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=quiet -i $private_key" sh -c "$(curl -fsLS git.io/chezmoi)" -d -b "$HOME/.local/bin" -- init -v --apply --source "$DOTINIT" "$DOTINIT_REPO" 2>&1; then
+        if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=quiet -i $private_key" sh -c "$(curl -fsLS git.io/chezmoi)" -d -b "$HOME/.local/bin" -- init --apply --source "$DOTINIT" "$DOTINIT_REPO" 2>&1; then
             echo "Git clone via chezmoi failed."
             exit 1
         else
