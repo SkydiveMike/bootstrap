@@ -38,8 +38,8 @@ bootstrap_main () {
         echo "Attempting Clone from AWS CodeCommit."
         echo
 
-        if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=quiet -i $private_key" git clone --recurse-submodules "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
             echo "Git clone failed."
+        if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=verbose -i $private_key" sh -c "$(curl -fsLS git.io/chezmoi)" -d -b "$HOME/.local/bin" -- init --debug -v --source "$DOTINIT" "$DOTINIT_REPO" 2>&1; then
             exit 1
         else
             # Fix permission on SSH Keys
