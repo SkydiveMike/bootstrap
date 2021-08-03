@@ -23,29 +23,27 @@ bootstrap_main () {
     if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
         echo "${DOTINIT} exists as a readable directory"
     else
-        if [ $? = 1 ]; then # Proceed to Git Clone
-            ########################################################
-            # Given that no existing .init directory exists, we no #
-            #  must clone a copy from AWS CodeCommit. This in turn #
-            #  requires a valid SSH key.                           #
-            ########################################################
-            echo -n "${DOTINIT} NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
-            check_git # check_git will exit the script ob failure
-            echo "PASS"
-            echo
-            check_ssh_agent
-            get_ssh_key # get_ssh_key will exit the script on failure
-            echo
-            echo "Attempting Clone from AWS CodeCommit."
-            echo
+        #############################################################
+        # Given that no existing .init directory exists, we no must #
+        # clone a copy from AWS CodeCommit. This in turn requires a #
+        # valid SSH key.                                            #
+        #############################################################
+        echo -n "${DOTINIT} NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
+        check_git # check_git will exit the script ob failure
+        echo "PASS"
+        echo
+        check_ssh_agent
+        get_ssh_key # get_ssh_key will exit the script on failure
+        echo
+        echo "Attempting Clone from AWS CodeCommit."
+        echo
 
-            if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=quiet -i $private_key" git clone --recurse-submodules "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
-                echo "Git clone failed."
-                exit 1
-            else
-                # Fix permission on SSH Keys
-                chmod go-rw "$DOTINIT"/dotfiles/ssh/ssh/id*[^p][^u][^b]
-            fi
+        if ! GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=quiet -i $private_key" git clone --recurse-submodules "$DOTINIT_REPO" "$DOTINIT" 2>&1; then
+            echo "Git clone failed."
+            exit 1
+        else
+            # Fix permission on SSH Keys
+            chmod go-rw "$DOTINIT"/dotfiles/ssh/ssh/id*[^p][^u][^b]
         fi
     fi
     echo
