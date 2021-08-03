@@ -29,7 +29,7 @@ bootstrap_main () {
         # valid SSH key.                                            #
         #############################################################
         echo -n "${DOTINIT} NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
-        check_git # check_git will exit the script ob failure
+        check_git # check_git will exit the script on failure
         echo "PASS"
         echo
         check_ssh_agent
