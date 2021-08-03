@@ -47,7 +47,9 @@ bootstrap_main () {
         fi
     fi
     echo
-    echo "Next step: cd into ${DOTINIT} and run: ssh-agent $HOME/.init/install.sh"
+    echo "Next steps:"
+    echo "- Restart your shell"
+    echo "- cd into ${DOTINIT} and run: ssh-agent $HOME/.init/install.sh"
 }
 
 ############################################################
