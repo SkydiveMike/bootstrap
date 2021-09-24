@@ -7,7 +7,6 @@
 ## Configuration
 
 DOTINIT="$HOME/.init"
-REQUIRED_GIT_VERSION="2.3.0"
 DOTINIT_REPO="ssh://APKAJQ5X5AT4DBLNEU6Q@git-codecommit.us-east-1.amazonaws.com/v1/repos/Init-Files"
 
 # Guarantee our OSNAME
@@ -52,55 +51,10 @@ bootstrap_main () {
     echo "- cd into ${DOTINIT} and run: ssh-agent $HOME/.init/install.sh"
 }
 
-############################################################
-# Compare dotted version strings.                          #
-############################################################
-vercomp () {
-    # https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
-    if [[ "$1" == "$2" ]]
-    then
-        return 0
-    fi
-    local IFS=.
-    local i ver1 ver2
-    read -r -a ver1 <<< "$1"
-    read -r -a ver2 <<< "$2"
-    # fill empty fields in ver1 with zeros
-    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
-    do
-        ver1[i]=0
-    done
-    for ((i=0; i<${#ver1[@]}; i++))
-    do
-        if [[ -z ${ver2[i]} ]]
-        then
-            # fill empty fields in ver2 with zeros
-            ver2[i]=0
-        fi
-        if ((10#${ver1[i]} > 10#${ver2[i]}))
-        then
-            return 1
-        fi
-        if ((10#${ver1[i]} < 10#${ver2[i]}))
-        then
-            return 2
-        fi
-    done
-    return 0
-}
-
 check_git () {
-    # Check presence and version of Git
-    if type -a git 2>/dev/null >/dev/null; then
-        GIT_VERSION=$(git --version | awk '{print $3;}')
-        vercomp "$GIT_VERSION" "$REQUIRED_GIT_VERSION"
-        if [ $? = 2 ]; then
-            echo "FAIL"
-            echo "This script requires Git Version ≥ $REQUIRED_GIT_VERSION; found installed git version $GIT_VERSION"
-            exit 1
-        fi
-    else
-        echo "This script requires Git Version ≥ $REQUIRED_GIT_VERSION; git not found"
+    # Check presence of Git
+    if ! type -a git 2>/dev/null >/dev/null; then
+        echo "This script requires Git; git not found"
         exit 1
     fi
 }
