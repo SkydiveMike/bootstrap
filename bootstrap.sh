@@ -7,6 +7,7 @@
 ## Configuration
 
 DOTINIT="$HOME/.init"
+# This AWS SSH Key ID = id.mike.mclean
 DOTINIT_REPO="ssh://APKAJQ5X5AT4DBLNEU6Q@git-codecommit.us-east-1.amazonaws.com/v1/repos/Init-Files"
 
 # Guarantee our OSNAME
