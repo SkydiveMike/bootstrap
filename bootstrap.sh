@@ -58,6 +58,11 @@ check_git () {
         echo "This script requires Git; git not found"
         exit 1
     fi
+    # Check for a real `git` not a macOS placeholder that will prompt for XCLT
+    if ! git --version >/dev/null 2>/dev/null; then
+        echo "This script requires Git; git not found"
+        exit 1
+    fi
 }
 
 #################################################################
