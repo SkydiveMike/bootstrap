@@ -20,15 +20,16 @@ fi
 ############################################################
 
 bootstrap_main () {
-    if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]]; then
-        echo "${DOTINIT} exists as a readable directory"
+
+    if [[ -d "$DOTINIT" ]] && [[ -r "$DOTINIT" ]] && [ -n "$(ls -A "$DOTINIT")" ]; then
+        echo "${DOTINIT} exists as a readable, non-empty directory"
     else
         #############################################################
         # Given that no existing .init directory exists, we no must #
         # clone a copy from AWS CodeCommit. This in turn requires a #
         # valid SSH key.                                            #
         #############################################################
-        echo -n "${DOTINIT} NOT FOUND; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
+        echo -n "${DOTINIT} NOT FOUND or empty; Need to Clone from AWS CodeCommit. Checking prerequisites ... "
         check_git # check_git will exit the script on failure
         echo "PASS"
         echo
